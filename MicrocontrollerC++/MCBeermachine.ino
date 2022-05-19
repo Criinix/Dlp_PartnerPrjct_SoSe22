@@ -3,11 +3,11 @@
 #include <Arduino.h>
 
 //Netzwerkdaten
-const char *SSID = "Home-WLAN-FG"; // Hier Netzwerkname
-const char *PASS = "2937784361936540"; // Hier Netzwerkpasswort
+const char *SSID = "BeerMachine"; // Hier Netzwerkname
+const char *PASS = "123456789"; // Hier Netzwerkpasswort
 
-String SERVERURL = "http://192.168.178.85/MCtestdatei.txt"; // Hier URL des Webservers
-String MCcomURL = "http://192.168.178.85/MCcom.php";
+String SERVERURL = "http://10.3.141.1/BeerMachine/MCtestdatei.txt"; // Hier URL des Webservers
+String MCcomURL = "http://10.3.141.1/BeerMachine/MCcom.php";
 uint32_t timeLoopStart;
 
 //Anfrage an Server stellen
@@ -67,6 +67,7 @@ while((WiFi.status() != WL_CONNECTED) && (retries < 50)) {
   
 if (retries >= 50) {
   Serial.println("Fehler: Netzwerkverbindung konnte nicht hergestellt werden");
+
 }
 
 }
