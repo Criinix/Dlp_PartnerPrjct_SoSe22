@@ -17,7 +17,7 @@
 
 <body>
     <div class="navbar ">
-        <button class="Home_Button ">BeerMachine</button>
+        <button class="Home_Button" onclick="IndexAufrufen()">BeerMachine</button>
         <div class="Menu ">
             <a href="http://10.3.141.1/BeerMachine/Login.html" class="links ">Login</a>
             <a href="" class="links ">Statistik</a>
@@ -27,21 +27,26 @@
     </div>
     <div class="login-box">
         <h2>Login</h2>
-        <form>
+        <form method="post" action="http://10.3.141.1/BeerMachine/Login.php">
             <div class="user-box">
-                <input type="text" name="" required="">
+                <input type="text" name="Username" required="">
                 <label>Username</label>
             </div>
             <div class="user-box">
-                <input type="password" name="" required="">
+                <input type="password" name="Password" required="">
                 <label>Password</label>
             </div>
-            <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span> Submit
-            </a>
+            <!--
+            <div class="checkbox">
+                <label><input type="checkbox" name="angemeldet_bleiben" value="1"> Angemeldet bleiben</label>
+            </div>
+            -->
+            <button type="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>submit
+            </button>
         </form>
     </div>
 

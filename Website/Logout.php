@@ -17,17 +17,39 @@
 
 <body>
     <div class="navbar ">
-        <button class="Home_Button" onclick="IndexAufrufen()">BeerMachine</button>
+        <button class="Home_Button">BeerMachine</button>
         <div class="Menu ">
-            <a href="http://10.3.141.1/BeerMachine/Login.html" class="links ">Login</a>
+            <button class="Home_Button" onclick="IndexAufrufen()">BeerMachine</button>
             <a href="# " class="links ">Statistik</a>
             <a href="# " class="links ">Log</a>
             <a href="http://10.3.141.1/BeerMachine/Registrieren.html" class="links ">Registrieren</a>
         </div>
     </div>
+
+    <script src=logic.js></script>
+
+
+
+
+    <?php
+    echo '<div class="Rückgabe-Bereich">';
+
+    session_start();
+    session_destroy();
+
+    echo "Logout erfolgreich";
+
+    echo '<div>';
+    ?>
+
 </body>
-<script src=logic.js></script>
-
-
 
 </html>
+<?php
+$time_start = time();
+while (time() - $time_start <= 6) {
+    if (time() - $time_start >= 5) {
+        header('Location: http://10.3.141.1/BeerMachine/index.html');
+    }
+}
+?>
