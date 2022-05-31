@@ -90,7 +90,7 @@
 
             // sql an Datenbank schicken:
             if ($result == true) {
-                echo "Du wurdest erfolgreich registriert<br>";
+                echo "Du wurdest erfolgreich registriert<br><br>Klicke nun auf den LOGIN-Button<br>Um dich einzuloggen";
                 $showFormular = false;
             } else {
                 echo "Speichern fehlgeschlagen!!<br>";

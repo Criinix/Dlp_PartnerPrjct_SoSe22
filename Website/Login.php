@@ -20,7 +20,7 @@
             <a href="http://10.3.141.1/BeerMachine/Login.html" class="links ">Login</a>
             <a href="# " class="links ">Statistik</a>
             <a href="# " class="links ">Log</a>
-            <a href="http://10.3.141.1/BeerMachine/Registrieren.html" class="links ">Registrieren</a>
+            <a href="http://10.3.141.1/BeerMachine/Logout.php" class="links ">Logout</a>
         </div>
     </div>
 
@@ -44,7 +44,8 @@
         //Überprüfen des Passworts
         if ($user !== false && password_verify($Password, $user['Password'])) {
             $_SESSION['userid'] = $user['Username'];
-            die('Login erfolgreich. Weiter zu <a href="http://10.3.141.1/BeerMachine/GeschützterBereich.php">internen Bereich</a>');
+            die('Login erfolgreich. <br> Weiter zu <br>
+                <a href="http://10.3.141.1/BeerMachine/GeschützterBereich.php">Geschützter Bereich</a>');
             $showFormular = false;
         } else {
             echo "Username oder Password war ungültig<br>";
