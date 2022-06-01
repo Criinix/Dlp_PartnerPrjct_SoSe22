@@ -28,6 +28,7 @@
 </body>
 <script src=logic.js></script>
 <?php
+echo '<div class="Begrüßung">';
 session_start();
 if (!isset($_SESSION['userid'])) {
     die('Bitte zuerst <a href="http://10.3.141.1/BeerMachine/Login.php">einloggen</a>');
@@ -37,6 +38,8 @@ if (!isset($_SESSION['userid'])) {
 $userid = $_SESSION['userid'];
 
 echo "Hallo User: " . $userid;
+
+echo '</div>'
 ?>
 
 

@@ -12,7 +12,7 @@
 
 
 
-    <title>Schankanlage Grande & Donath</title>
+    <title>Registrierung</title>
 </head>
 
 <body>
@@ -25,15 +25,36 @@
             <a href="http://10.3.141.1/BeerMachine/Registrieren.html" class="links ">Registrieren</a>
         </div>
     </div>
-    <div class="Text">
-        <h2>Hallo lieber BeerMachine-User!</h2>
-        Um die BeerMachine zu nutzen musst du dich Einloggen oder Registrieren<br>
-        <u><h3>Login</h3></u> Um dich einzulogen klicke auf den LOGIN-Button in der Navigationsleiste<br>
-        <u><h3>Registrierung</h3></u> Um dich zu Registrieren klicke auf den Registrieren-Button in der Navigationsleiste
+    <div class="login-box">
+        <h2>Registrieren</h2>
+        <form method="post" action="http://10.3.141.1/BeerMachine/Registrieren.php">
+            <div class="user-box">
+                <input type="text" name="Username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="Password" required="">
+                <label>Password</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="Password-wdh" required="">
+                <label>Password wiederholen</label>
+            </div>
+            <button type="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>submit
+            </button>
+        </form>
     </div>
+
+
+
+
+
 </body>
 <script src=logic.js></script>
-
 
 
 </html>
