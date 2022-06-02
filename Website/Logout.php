@@ -43,7 +43,7 @@
     ?>
 
 </body>
-
+<script src=logic.js></script>
 </html>
 <?php
 //nach 3s wird der User zurück auf die Index-Seite geleitet

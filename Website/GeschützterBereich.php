@@ -31,7 +31,7 @@
 echo '<div class="Begrüßung">';
 session_start();
 if (!isset($_SESSION['userid'])) {
-    die('Bitte zuerst <a href="http://10.3.141.1/BeerMachine/Login.php">einloggen</a>');
+    die('Bitte zuerst <a href="http://10.3.141.1/BeerMachine/Login.html">einloggen</a>');
 }
 
 //Abfrage der Nutzer ID vom Login

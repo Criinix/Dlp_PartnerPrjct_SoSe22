@@ -1,3 +1,5 @@
+/*Formatierung für alle default Elemente und den Body jeder Seite*/
+
 body {
     font-family: 'Open Sans', sans-serif;
     background-image: url("Background.jpg");
@@ -12,6 +14,9 @@ body {
     padding-right: 100px;
 }
 
+
+/*Formatierung der Navigationsleiste und des Homebuttons BEERMACHINE*/
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -21,6 +26,9 @@ body {
     height: 100px;
     margin-top: 20px;
 }
+
+
+/*Formatierung des BEERMACHINE Homebuttons*/
 
 .Home_Button,
 .Home_Button::after {
@@ -109,6 +117,9 @@ body {
     }
 }
 
+
+/*Formatierung der links im Body als Buttons sowie in der Navigationsleiste*/
+
 .links {
     color: #fff;
     background: rgba(0, 0, 0, 0.5);
@@ -126,6 +137,9 @@ body {
     padding: 20px 20px;
     color: #1b1b1b;
 }
+
+
+/*Formatierung des Login- und Registrierungsformulars*/
 
 .login-box {
     position: absolute;
@@ -292,6 +306,9 @@ body {
     }
 }
 
+
+/*Formatierung des Rückgabebereichs für Registrieren.php, Login.php und Logout.php*/
+
 .Rückgabe-Bereich {
     color: #fff;
     position: absolute;
@@ -304,6 +321,9 @@ body {
     font-size: larger;
     font-weight: 600;
 }
+
+
+/*Formatierung des Buttons für die Weiterleitung in den Geschützten Bereich*/
 
 .Rückgabe-Bereich a {
     background-color: transparent;

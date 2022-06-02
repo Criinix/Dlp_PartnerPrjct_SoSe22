@@ -88,5 +88,5 @@
 
 
 </body>
-
+<script src=logic.js></script>
 </html>
