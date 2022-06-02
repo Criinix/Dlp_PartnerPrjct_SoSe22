@@ -34,8 +34,8 @@
     <?php
     echo '<div class="Rückgabe-Bereich">';
 
-    session_start();
-    session_destroy();
+    session_start(); //Session wird übergeben
+    session_destroy();//Session wird beendet-->User wird augeloggt
 
     echo "Logout erfolgreich";
 
@@ -46,9 +46,10 @@
 
 </html>
 <?php
+//nach 3s wird der User zurück auf die Index-Seite geleitet
 $time_start = time();
-while (time() - $time_start <= 6) {
-    if (time() - $time_start >= 5) {
+while (time() - $time_start <= 4) {
+    if (time() - $time_start >= 3) {
         header('Location: http://10.3.141.1/BeerMachine/index.html');
     }
 }

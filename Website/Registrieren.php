@@ -25,15 +25,15 @@
     </div>
 
     <?php
-    echo '<div class="Rückgabe-Bereich">';
-    session_start();
+    echo '<div class="Rückgabe-Bereich">';//Anfang des Rückgabe-Feldes
+    session_start();//Erzeugen einer neuen Session
     $showFormular = true; //Variable ob das Registrierungsformular angezeigt wird
-    $pdo = new pdo('mysql:host=localhost;dbname=BeerMachine', 'root', '123456789');
+    $pdo = new pdo('mysql:host=localhost;dbname=BeerMachine', 'root', '123456789');//Wie mysqli nur in Sicherer-Ausführung --> Prinzip gleich
     if ($pdo->connect_error) {
         echo $pdo->connect_error;
     } else {
         echo "Datenbankverbindung hergestellt!<br>";
-
+        //Deklarieren der benötigten Variablen zur Übergabe der Eingebenen Daten
         $error = false;
         $Username = "";
         $Password = "";
@@ -77,18 +77,14 @@
         }
         //Wenn alles eingetragen und Username noch nicht vorhanden
         if (!$error) {
-            // Daten in Datenbank schreiben		-> php Biliothek "mysqli"
+            //Password von Klartext in Hashwert umwandeln
             $passwort_hash = password_hash($Password, PASSWORD_DEFAULT);
 
-            // SQL 
+            //Username und Password in Datenbank Tabelle Benutzer eintragen
             $statement = $pdo->prepare("INSERT INTO Benutzer (Username, Password) VALUES(:Username, :Password)");
             $result = $statement->execute(array('Username' => $Username, 'Password' => $passwort_hash));
-            // SQL zum Datensatz verändern: "UPDATE"
 
-            echo $sql;
-            echo "<br>";
-
-            // sql an Datenbank schicken:
+            //Überprüfen ob Username und Password gespeichert wurden
             if ($result == true) {
                 echo "Du wurdest erfolgreich registriert<br><br>Klicke nun auf den LOGIN-Button<br>Um dich einzuloggen";
                 $showFormular = false;
@@ -97,10 +93,9 @@
             }
         }
 
-        //Wenn nicht
-
         echo '</div>';
     }
+    //Wenn $showFormular true, dann wird Formular angezeigt
     if ($showFormular) {
     ?>
         <div class="login-box">

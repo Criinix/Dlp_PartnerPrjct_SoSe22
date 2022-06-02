@@ -25,34 +25,37 @@
     </div>
 
     <?php
-    echo '<div class="Rückgabe-Bereich">';
-    session_start();
+    echo '<div class="Rückgabe-Bereich">'; //Anfang des Rückgabe-Feldes
+    session_start(); //Erzeugen einer neuen Session
     $showFormular = true; //Variable ob das Registrierungsformular angezeigt wird
-    $pdo = new pdo('mysql:host=localhost;dbname=BeerMachine', 'root', '123456789');
+    $pdo = new pdo('mysql:host=localhost;dbname=BeerMachine', 'root', '123456789'); //Wie mysqli nur in Sicherer-Ausführung --> Prinzip gleich
+    //Überprüfen der Datenbankverbindung
     if ($pdo->connect_error) {
         echo $pdo->connect_error;
     } else {
         echo "Datenbankverbindung hergestellt!<br>";
     }
+    //Überprüfen ob die Felder Username und Password ausgefüllt sind
     if (isset($_POST["Username"]) && isset($_POST["Password"])) {
         $Username = $_POST["Username"];
         $Password = $_POST["Password"];
-
+        //Abfragen des Username in der Datenbank
         $statement = $pdo->prepare("SELECT * FROM Benutzer WHERE Username = :Username");
         $result = $statement->execute(array('Username' => $Username));
         $user = $statement->fetch();
         //Überprüfen des Passworts
-        if ($user !== false && password_verify($Password, $user['Password'])) {
-            $_SESSION['userid'] = $user['Username'];
+        if ($user !== false && password_verify($Password, $user['Password'])) { //Passwordverfiy überprüft eingegebenes Passwort mit Hashwert des eingebenen Passworts
+            $_SESSION['userid'] = $user['Username'];//Username an Session-Cookie als ID übergeben
             die('Login erfolgreich. <br> Weiter zu <br>
-                <a href="http://10.3.141.1/BeerMachine/GeschützterBereich.php">Geschützter Bereich</a>');
-            $showFormular = false;
+                <a href="http://10.3.141.1/BeerMachine/GeschützterBereich.php">Geschützter Bereich</a>'); //Aufforderung in den Geschützten-Bereich zu gelangen über Button-click
+            $showFormular = false;//Wenn True dann wird Login-Formular nicht mehr angezeigt
         } else {
             echo "Username oder Password war ungültig<br>";
         }
     }
 
     echo '</div>';
+    //Wenn $showFormular true, dann wird Formular angezeigt
     if ($showFormular) {
     ?>
         <div class="login-box">
