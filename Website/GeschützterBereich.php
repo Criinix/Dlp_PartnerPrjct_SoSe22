@@ -37,6 +37,26 @@ if (!isset($_SESSION['userid'])) {
 //Abfrage der Nutzer ID vom Login
 $userid = $_SESSION['userid'];
 
+$db = new mysqli("localhost", "root","123456789", "BeerMachine");
+if ($db->connect_error) {
+    echo $db->connect_error;
+}
+else {
+    echo "Datenbankverbindung hergestellt!<br>";
+
+    $sql = "UPDATE Mikrocontroller SET AktuellerUser = $userid";
+
+    echo $sql+'<br>';
+    $result = $db->query($sql);
+    if ($result) {
+        echo "Userid übergeben<br>";
+    }
+    else {
+        echo "Speichern fehlgeschlagen<br>";
+    }
+
+}
+
 echo "Hallo User: " . $userid;
 
 echo '</div>'

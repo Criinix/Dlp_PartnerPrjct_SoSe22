@@ -3,11 +3,11 @@
 #include <Arduino.h>
 
 //Netzwerkdaten
-const char *SSID = "Home-WLAN-FG"; // Hier Netzwerkname
-const char *PASS = "2937784361936540"; // Hier Netzwerkpasswort
+const char *SSID = "BeerMachine"; // Hier Netzwerkname
+const char *PASS = "123456789"; // Hier Netzwerkpasswort
 
-String SERVERURL = "http://192.168.178.85/MCstatus.txt"; // Hier URL des Webservers
-String MCcomURL = "http://192.168.178.85/MCcom.php"; 
+String SERVERURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCstatus.txt"; // Hier URL des Webservers
+String MCcomURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCcom.php"; 
 
 //Timer
 long tLoopDelay1s;
@@ -39,6 +39,7 @@ class cGetraenkeeinheit {
   bool isBusy;
   int fuellstand;
   int statuswert;  
+  long tPumpeStart;
   long tPumpeStart;
   unsigned char pinPumpe;
   unsigned char trigPinUSS;
@@ -120,7 +121,7 @@ void loop() {
 checkWiFiconnection(); //inklusive Heartbeat
 
 if ((millis()-tLoopDelay1s)>1000) {
-  responseStatus = serverRequest(SERVERURL);
+  responseStatus = serverRequest(MCcomURL+"?Statusabfrage=1");
   tLoopDelay1s = millis();
 }
 
@@ -197,7 +198,7 @@ void actOnStatus() {
 
 //Meldung in logfile schreiben
 void sendtolog(int Code) {
-  String logURLCode = "http://192.168.178.85/MCwritelog.php?Code="+(String)Code;
+  String logURLCode = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCwritelog.php?Code="+(String)Code;
   serverRequest(logURLCode);
   Serial.println("Eintrag mit Code: "+(String)Code+" in logfile geschrieben");
 }
