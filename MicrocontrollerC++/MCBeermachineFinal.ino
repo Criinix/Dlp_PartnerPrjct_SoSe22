@@ -18,6 +18,7 @@ long tlastBeat;
 String responseStatus;
 bool stateLED;
 bool sendFuellstandErrortolog;
+int UserID;
 
 //Anfrage an Server stellen
 String serverRequest(String adr) {
@@ -122,6 +123,7 @@ checkWiFiconnection(); //inklusive Heartbeat
 
 if ((millis()-tLoopDelay1s)>1000) {
   responseStatus = serverRequest(MCcomBase+"?Statusabfrage=1");
+  UserID = getUserID();
   tLoopDelay1s = millis();
 }
 
@@ -198,7 +200,14 @@ void actOnStatus() {
 
 //Meldung in logfile schreiben
 void sendtolog(int Code) {
-  String logURLCode = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCwritelog.php?Code="+(String)Code;
-  serverRequest(logURLCode);
+  String logURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCwritelog.php?Code="+(String)Code;
+  serverRequest(logURL);
   Serial.println("Eintrag mit Code: "+(String)Code+" in logfile geschrieben");
+}
+
+//Aktuelle User ID aus DB holen
+int getUserID() {
+  String UserIDURL = MCcomBase+"?Statusabfrage=1";
+  int responseUserID = serverRequest(UserIDURL);
+  return responseUserID;
 }
