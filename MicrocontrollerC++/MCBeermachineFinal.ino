@@ -7,7 +7,7 @@ const char *SSID = "BeerMachine"; // Hier Netzwerkname
 const char *PASS = "123456789"; // Hier Netzwerkpasswort
 
 String SERVERURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCstatus.txt"; // Hier URL des Webservers
-String MCcomURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCcom.php"; 
+String MCcomBase = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCcom.php"; 
 
 //Timer
 long tLoopDelay1s;
@@ -55,7 +55,7 @@ class cGetraenkeeinheit {
   void pumpeEin() {
     digitalWrite(pinPumpe, LOW);
     if ((millis()-tPumpeStart)>3000) {
-      String URLStatus0 = MCcomURL + "?neuerStatusMC=0";
+      String URLStatus0 = MCcomBase + "?neuerStatusMC=0";
       serverRequest(URLStatus0); //Status auf Server auf 0 setzen nach Zeit
       isBusy=0;
       responseStatus="0";
@@ -121,7 +121,7 @@ void loop() {
 checkWiFiconnection(); //inklusive Heartbeat
 
 if ((millis()-tLoopDelay1s)>1000) {
-  responseStatus = serverRequest(MCcomURL+"?Statusabfrage=1");
+  responseStatus = serverRequest(MCcomBase+"?Statusabfrage=1");
   tLoopDelay1s = millis();
 }
 
