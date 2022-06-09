@@ -1,26 +1,25 @@
 <?php
-if ((isset($_GET['errorCode']))or(isset($_GET['Code']))) {
+if (isset($_GET['Code'])) {
 }
 else {
-    echo "-1:missing value for errorCode/Code";
+    echo "-1:missing value for Code";
 }
 
-//errorCode Auswerten und in logfile schreiben
+//Code Auswerten und in logfile schreiben
 $file = fopen("MClog.txt", "a");
-$errorCode = $_GET['errorCode'];
 $Code = $_GET['Code'];
 if ($file) {
-    //errocCode - Fehler
-    if ($errorCode == -1) {
-        $txt = date('d-m-y h:i:s')." | ErrorCode: ".$errocCode;
+    //Code - Fehler
+    if ($Code == -1) {
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Fehlermeldung";    //currently not in use
         fwrite($file, $txt."\n");
     }
-    if ($errorCode == -2) {
-        $txt = date('d-m-y h:i:s')." | ErrorCode: ".$errocCode;
+    if ($Code == -2) {
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Fehlermeldung";    //currently not in use
         fwrite($file, $txt."\n");
     }
-    if ($errorCode == -3) {
-        $txt = date('d-m-y h:i:s')." | ErrorCode: ".$errocCode;
+    if ($Code == -3) {
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Fehlermeldung";    //currently not in use
         fwrite($file, $txt."\n");
     }
 
