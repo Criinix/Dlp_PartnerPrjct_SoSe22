@@ -22,17 +22,16 @@ else {
 
 
     //MC holt Status aus DB
-
     if (isset($_GET['Statusabfrage'])) {
         $sql = "SELECT Status FROM Mikrocontroller";
-
-        echo $sql;
-
         $result = $db->query($sql);
-        echo $result;
-
         if ($result) {
-            
+            while ($datensatz = $result->fetch_objekt()) {
+                echo $datensatz->Status;
+            }
+        }
+        else {
+            echo "Lesen fehlgeschlagen!<br>";
         }
     }
 }
