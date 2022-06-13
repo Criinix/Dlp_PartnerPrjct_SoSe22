@@ -18,7 +18,7 @@ long tlastBeat;
 String responseStatus;
 bool stateLED;
 bool sendFuellstandErrortolog;
-int UserID;
+String UserID;
 
 //Anfrage an Server stellen
 String serverRequest(String adr) {
@@ -207,9 +207,9 @@ void sendtolog(int Code) {
 }
 
 //Aktuelle User ID aus DB holen
-int getUserID() {
+String getUserID() {
   String UserIDURL = MCcomBase+"?Statusabfrage=1";
-  int responseUserID = serverRequest(UserIDURL);
+  String responseUserID = serverRequest(UserIDURL);
   return responseUserID;
 }
 
