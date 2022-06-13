@@ -26,7 +26,7 @@ else {
         $sql = "SELECT Status FROM Mikrocontroller";
         $result = $db->query($sql);
         if ($result) {
-            while ($datensatz = $result->fetch_objekt()) {
+            while ($datensatz = $result->fetch_object()) {
                 echo $datensatz->Status;
             }
         }

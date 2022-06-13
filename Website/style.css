@@ -417,3 +417,17 @@ body {
     url('http://10.3.141.1/BeerMachine/fonts/bebas-neue-v9-latin-regular.svg#BebasNeue') format('svg');
     /* Legacy iOS */
 }
+
+
+/*Button für Getränkeausgabe*/
+
+
+/*Auswahl Lieblingsgetränk Dropdown*/
+
+.User_Input form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    size: auto;
+}

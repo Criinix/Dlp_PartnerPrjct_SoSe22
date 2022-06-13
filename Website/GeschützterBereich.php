@@ -28,39 +28,61 @@
 </body>
 <script src=logic.js></script>
 <?php
-echo '<div class="Begrüßung">';
-session_start();
-if (!isset($_SESSION['userid'])) {
-    die('Bitte zuerst <a href="http://10.3.141.1/BeerMachine/Login.html">einloggen</a>');
-}
+    $showActions = true;
+    echo '<div class="Begrüßung">';
+    session_start();
+    if (!isset($_SESSION['userid'])) {
+        die('Bitte zuerst <a href="http://10.3.141.1/BeerMachine/Login.html">einloggen</a>');
+        $showActions = false;
+    }
 
-//Abfrage der Nutzer ID vom Login
-$userid = $_SESSION['userid'];
+    //Abfrage der Nutzer ID vom Login
+    //Abfrage der Nutzer ID vom Login
+    $userid = $_SESSION['userid'];
 
-$db = new mysqli("localhost", "root","123456789", "BeerMachine");
-if ($db->connect_error) {
-    echo $db->connect_error;
-}
-else {
-    echo "Datenbankverbindung hergestellt!<br>";
-
-    $sql = "UPDATE Mikrocontroller SET AktuellerUser = $userid";
-
-    echo $sql+'<br>';
-    $result = $db->query($sql);
-    if ($result) {
-        echo "Userid übergeben<br>";
+    $db = new mysqli("localhost", "root","123456789", "BeerMachine");
+    if ($db->connect_error) {
+        echo $db->connect_error;
     }
     else {
-        echo "Speichern fehlgeschlagen<br>";
+        echo "Datenbankverbindung hergestellt!<br>";
+
+        $sql = "UPDATE Mikrocontroller SET AktuellerUser = $userid";
+
+        echo $sql+'<br>';
+        $result = $db->query($sql);
+        if ($result == true) {
+            echo "Userid übergeben<br>";
+        }
+        else {
+            echo "Speichern fehlgeschlagen<br>";
+        }
+
     }
 
-}
+    echo "Hallo User: " . $userid;
 
-echo "Hallo User: " . $userid;
+    echo '</div>';
 
-echo '</div>'
-?>
+
+    if ($showActions) {
+    ?>
+        <div class="User_Input">
+            <form mehtod= "GET" action="http://10.3.141.1/BeerMachine/GeschützterBereich.php">
+                <button name="O-Saft" class="O-Saft_Button" type="submit">O-Saft</button>
+                <button name="Wasser"class="Wasser_Button" type="submit">Wasser</button>
+            
+                <select size="2" name="Auswahl_LGetränk">
+                    <option>--Lieblingsgetränk--</option>   
+                    <option>Cola</option>
+                    <option>Wasser</option>
+                </select>
+            </form>
+            
+        </div>
+    <?php
+    }
+    ?>
 
 
 
