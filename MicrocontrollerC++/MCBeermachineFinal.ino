@@ -18,7 +18,7 @@ long tlastBeat;
 String responseStatus;
 bool stateLED;
 bool sendFuellstandErrortolog;
-int UserID;
+String UserID;
 
 //Anfrage an Server stellen
 String serverRequest(String adr) {
@@ -132,6 +132,7 @@ actOnStatus();
 if ((millis()-tLoopDelay3s)>3000) {
   Wasser->fuellstand = 20-Wasser->getDataUSS();
   Bier->fuellstand = 20-Bier->getDataUSS();
+  sendFuellstand();
   Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand Bier: " + (String)Bier->fuellstand);
   tLoopDelay3s = millis();
 }
@@ -206,8 +207,15 @@ void sendtolog(int Code) {
 }
 
 //Aktuelle User ID aus DB holen
-int getUserID() {
+String getUserID() {
   String UserIDURL = MCcomBase+"?Statusabfrage=1";
-  int responseUserID = serverRequest(UserIDURL);
+  String responseUserID = serverRequest(UserIDURL);
   return responseUserID;
+}
+
+//Füllstände an Server senden
+void sendFuellstand() {
+  String dataUssURL = MCcomBase+"?standWasser="+Wasser->fuellstand+"&standOSaft="+Bier->fuellstand;
+  Serial.println(dataUssURL);
+  serverRequest(dataUssURL);
 }
