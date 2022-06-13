@@ -34,8 +34,17 @@ else {
             echo "Lesen fehlgeschlagen!<br>";
         }
     }
+    
+    //MC übermittelt Füllstände in Datenbank
+    if (isset($_GET['standWasser']) && isset($_GET['standOSaft'])) {
+        $sql = "UPDATE Mikrocontroller SET Fuellstand_Wasser = $_GET['standWasser'], Fuellstand_OSaft = $_GET['standOSaft']";
+        $result = db->query($sql);
+        if ($result) {
+            echo "Füllstände aktualisiert";
+        }
+        else {
+            echo "Füllstand Aktualisierung fehlgeschlagen";
+        }
+    }
 }
-
-
-//Hier Füllstände in Datenbank speichern
 ?>
