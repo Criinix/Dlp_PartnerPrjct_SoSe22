@@ -39,15 +39,16 @@
     //Abfrage der Nutzer ID vom Login
     //Abfrage der Nutzer ID vom Login
     $userid = $_SESSION['userid'];
-
+    echo "Hallo User: " . $userid;
+    $MAC = 1;
     $db = new mysqli("localhost", "root","123456789", "BeerMachine");
     if ($db->connect_error) {
         echo $db->connect_error;
     }
     else {
         echo "Datenbankverbindung hergestellt!<br>";
-
-        $sql = "UPDATE Mikrocontroller SET AktuellerUser = '$userid' WHERE MAC = 1";
+        //Aktuellen User an Mikrocontroller übergeben
+        $sql = "UPDATE Mikrocontroller SET AktuellerUser = '$userid' WHERE MAC = '$MAC'";
 
         //echo $sql+'<br>';
         $result = $db->query($sql);
@@ -57,10 +58,56 @@
         else {
             echo "Speichern fehlgeschlagen<br>";
         }
+        //Status MC auf O-Saft setzen
+        if(isset($_GET['O-Saft'])) {
+            $sql = "UPDATE Mikrocontroller SET Status = 2 WHERE MAC = '$MAC'";
+            $result = $db->query($sql);
+            if ($result == true) {
+                echo "O-Saft wird zubereitet<br>";
+            }
+            else {
+                echo "Befehl fehlgeschlagen<br>";
+            }
+        }
+        //Status MC auf Wasser setzen
+        if(isset($_GET['Wasser'])) {
+            $sql = "UPDATE Mikrocontroller SET Status = 1 WHERE MAC = '$MAC'";
+            $result = $db->query($sql);
+        if ($result == true) {
+                echo "Wasser wird zubereitet<br>";
+            }
+        else {
+                echo "Befehl fehlgeschlagen<br>";
+            }
+        }
+        //Lieblingsgetränk ändern
+        if(isset($_GET['LGetränk'])) {
+            $LGetränk = $_GET['LGetränk'];
+            $sql = "SELECT Lieblingsgetränk from Benutzer WHERE Username = '$userid'";
+
+            $result = $db->query($sql);
+
+            if ($result) {
+                $Lieblingsgetränk = $result->fetch_object();
+
+                if($Lieblingsgetränk != $_GET['LGetränk']) {
+                        $sql = "UPDATE Benutzer SET Lieblingsgetränk ='$LGetränk' WHERE Username = '$userid' ";
+                        $result = $db->query($sql);
+                    if ($result == true) {
+                            echo "Lieblingsgetränk aktualisiert<br>";
+                        }
+                    else {
+                            echo "Aktualisierung fehlgeschlagen<br>";
+                        }
+                }
+            }
+
+        }
+
 
     }
 
-    echo "Hallo User: " . $userid;
+  
 
     echo '</div>';
 
@@ -70,12 +117,12 @@
         <div class="User_Input">
             <form method= "GET" action="http://10.3.141.1/BeerMachine/GeschützterBereich.php">
                 <button name="O-Saft" class="O-Saft_Button" type="submit">O-Saft</button><br>
-                <button name="Wasser"class="Wasser_Button" type="submit">Wasser</button><br>
+                <button name="Wasser"class="Wasser_Button" type="submit">Wasser</button><br><br>
             
-                <u>Auswahl Lieblingsgetränk</u><br>
-                <select size="2" name="Auswahl_LGetränk">
+                <u>Lieblingsgetränk:</u><br>
+                <select name="LGetränk">
                     <!--<option>--Lieblingsgetränk--</option>   -->
-                    <option>Cola</option>
+                    <option>O-Saft</option>
                     <option>Wasser</option>
                 </select>
             </form>

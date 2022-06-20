@@ -429,22 +429,23 @@ body {
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    size: auto;
+    width: 200px;
+    height: 250px;
     color: #fff;
     background: rgba(0, 0, 0, .5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
-    font-size: medium;
-    font-weight: 400;
+    font-size: large;
+    font-weight: 700;
 }
 
 .User_Input form button.O-Saft_Button {
-    margin-left: 30px;
+    margin-left: 39px;
 }
 
 .User_Input form button.Wasser_Button {
-    margin-left: 25px;
+    margin-left: 34px;
 }
 
 .User_Input form button {
@@ -472,3 +473,26 @@ body {
 
 
 /*Auswahl Lieblingsgetränk Dropdown*/
+
+.User_Input select {
+    margin-top: 10px;
+    width: 70%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    color: #03e9f4;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 30px;
+    letter-spacing: 4px;
+    display: inline-block;
+    transition: .5s;
+}
+
+.User_Input select:hover {
+    background: #03e9f4;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+}
