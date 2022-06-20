@@ -37,8 +37,10 @@ else {
     
     //MC übermittelt Füllstände in Datenbank
     if (isset($_GET['standWasser']) && isset($_GET['standOSaft'])) {
-        $sql = "UPDATE Mikrocontroller SET Fuellstand_Wasser = $_GET['standWasser'], Fuellstand_OSaft = $_GET['standOSaft']";
-        $result = db->query($sql);
+        $standWasser = $_GET['standWasser'];
+        $standOSaft = $_GET['standOSaft'];
+        $sql = "UPDATE Mikrocontroller SET Fuellstand_Wasser = $standWasser, Fuellstand_OSaft = $standOSaft";
+        $result = $db->query($sql);
         if ($result) {
             echo "Füllstände aktualisiert";
         }
