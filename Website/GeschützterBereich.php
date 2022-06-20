@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link href=" https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap " rel="stylesheet">
+    <link href="http://10.3.141.1/BeerMachine/Website/fonts" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com ">
 
 
@@ -47,9 +47,9 @@
     else {
         echo "Datenbankverbindung hergestellt!<br>";
 
-        $sql = "UPDATE Mikrocontroller SET AktuellerUser = $userid";
+        $sql = "UPDATE Mikrocontroller SET AktuellerUser = '$userid' WHERE MAC = 1";
 
-        echo $sql+'<br>';
+        //echo $sql+'<br>';
         $result = $db->query($sql);
         if ($result == true) {
             echo "Userid übergeben<br>";
@@ -68,12 +68,13 @@
     if ($showActions) {
     ?>
         <div class="User_Input">
-            <form mehtod= "GET" action="http://10.3.141.1/BeerMachine/GeschützterBereich.php">
-                <button name="O-Saft" class="O-Saft_Button" type="submit">O-Saft</button>
-                <button name="Wasser"class="Wasser_Button" type="submit">Wasser</button>
+            <form method= "GET" action="http://10.3.141.1/BeerMachine/GeschützterBereich.php">
+                <button name="O-Saft" class="O-Saft_Button" type="submit">O-Saft</button><br>
+                <button name="Wasser"class="Wasser_Button" type="submit">Wasser</button><br>
             
+                <u>Auswahl Lieblingsgetränk</u><br>
                 <select size="2" name="Auswahl_LGetränk">
-                    <option>--Lieblingsgetränk--</option>   
+                    <!--<option>--Lieblingsgetränk--</option>   -->
                     <option>Cola</option>
                     <option>Wasser</option>
                 </select>
