@@ -60,6 +60,7 @@ class cGetraenkeeinheit {
       isBusy=0;
       responseStatus="0";
       sendtolog(statuswert);
+      updateUser(statuswert, UserID);
     }
   }
   
@@ -215,4 +216,10 @@ void sendFuellstand() {
   String dataUssURL = MCcomBase+"?standWasser="+Wasser->fuellstand+"&standOSaft="+Bier->fuellstand;
   Serial.println(dataUssURL);
   serverRequest(dataUssURL);
+}
+
+//Getränk ausgegeben, Update User Getränekmenge
+void updateUser(int statuswert, String UserID) {
+  String updateUserURL = MCcomBase+"?getraenk="+statuswert+"&UserID="+UserID;
+  serverRequest(updateUserURL);
 }
