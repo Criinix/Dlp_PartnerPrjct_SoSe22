@@ -132,7 +132,7 @@ if ((millis()-tLoopDelay3s)>3000) {
   Wasser->fuellstand = 20-Wasser->getDataUSS();
   Bier->fuellstand = 20-Bier->getDataUSS();
   sendFuellstand();
-  Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand Bier: " + (String)Bier->fuellstand);
+  Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand OSaft: " + (String)Bier->fuellstand);
   tLoopDelay3s = millis();
 }
 
