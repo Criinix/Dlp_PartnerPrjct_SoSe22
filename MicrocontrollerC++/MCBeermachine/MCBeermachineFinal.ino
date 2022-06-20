@@ -17,7 +17,6 @@ long tlastBeat;
 //Hilfsvariablen
 String responseStatus;
 bool stateLED;
-bool sendFuellstandErrortolog;
 String UserID;
 
 //Anfrage an Server stellen
@@ -175,14 +174,12 @@ void actOnStatus() {
   if ((responseStatus == (String)Wasser->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Wasser->fuellstand>0)) {
     Wasser->isBusy = 1;
     Wasser->tPumpeStart=millis();
-    Serial.println("Wasser is busy");
-    sendFuellstandErrortolog=0;      
+    Serial.println("Wasser is busy");     
   }
   if ((responseStatus == (String)Bier->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Bier->fuellstand>0)) {
     Bier->isBusy = 1;
     Bier->tPumpeStart=millis();
-    Serial.println("Bier is busy");
-    sendFuellstandErrortolog=0; 
+    Serial.println("Bier is busy"); 
   }
 
   if (Wasser->isBusy) {
