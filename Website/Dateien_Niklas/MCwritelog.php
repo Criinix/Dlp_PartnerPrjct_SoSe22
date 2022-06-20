@@ -24,16 +24,31 @@ if ($file) {
     }
 
     //Code - normaler Eintrag in logfile
-    if ($Code == 0) {
+    if ($Code == 0) {  //Heartbeat
         $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Verbindung: MC->Server steht";
         fwrite($file, $txt."\n");
+        
+        $db = new mysqli("localhost", "root", "123456789", "BeerMachine");
+	    if ($db->connect_error) {
+		    echo $db->connect_error;
+	    }
+        else {
+            $sql = "UPDATE Mikrocontroller SET TimeStamp = CURRENT_TIMESTAMP";
+        }
+        $result = $db->query($sql);
+		if ($result==true) {
+			echo "Daten gespeichert!<br>";
+		}
+		else {
+			echo "Speichern fehlgeschlagen!!<br>";
+		}
     }
     if ($Code == 1) {
-        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Wasser ausgeschenkt";
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Wasser ausgegeben";
         fwrite($file, $txt."\n");
     }
     if ($Code == 2) {
-        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Bier ausgeschenkt";
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Orangensaft ausgegeben";
         fwrite($file, $txt."\n");
     }
 }

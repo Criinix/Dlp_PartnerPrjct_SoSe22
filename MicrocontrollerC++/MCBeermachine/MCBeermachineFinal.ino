@@ -17,7 +17,6 @@ long tlastBeat;
 //Hilfsvariablen
 String responseStatus;
 bool stateLED;
-bool sendFuellstandErrortolog;
 String UserID;
 
 //Anfrage an Server stellen
@@ -61,6 +60,7 @@ class cGetraenkeeinheit {
       isBusy=0;
       responseStatus="0";
       sendtolog(statuswert);
+      updateUser(statuswert, UserID);
     }
   }
   
@@ -133,7 +133,7 @@ if ((millis()-tLoopDelay3s)>3000) {
   Wasser->fuellstand = 20-Wasser->getDataUSS();
   Bier->fuellstand = 20-Bier->getDataUSS();
   sendFuellstand();
-  Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand Bier: " + (String)Bier->fuellstand);
+  Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand OSaft: " + (String)Bier->fuellstand);
   tLoopDelay3s = millis();
 }
 
@@ -175,14 +175,12 @@ void actOnStatus() {
   if ((responseStatus == (String)Wasser->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Wasser->fuellstand>0)) {
     Wasser->isBusy = 1;
     Wasser->tPumpeStart=millis();
-    Serial.println("Wasser is busy");
-    sendFuellstandErrortolog=0;      
+    Serial.println("Wasser is busy");     
   }
   if ((responseStatus == (String)Bier->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Bier->fuellstand>0)) {
     Bier->isBusy = 1;
     Bier->tPumpeStart=millis();
-    Serial.println("Bier is busy");
-    sendFuellstandErrortolog=0; 
+    Serial.println("Bier is busy"); 
   }
 
   if (Wasser->isBusy) {
@@ -218,4 +216,10 @@ void sendFuellstand() {
   String dataUssURL = MCcomBase+"?standWasser="+Wasser->fuellstand+"&standOSaft="+Bier->fuellstand;
   Serial.println(dataUssURL);
   serverRequest(dataUssURL);
+}
+
+//Getränk ausgegeben, Update User Getränekmenge
+void updateUser(int statuswert, String UserID) {
+  String updateUserURL = MCcomBase+"?getraenk="+statuswert+"&UserID="+UserID;
+  serverRequest(updateUserURL);
 }
