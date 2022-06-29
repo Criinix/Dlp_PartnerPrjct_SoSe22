@@ -1,6 +1,6 @@
 cButton ButtonWasser;
 cButton ButtonOSaft;
-String APPcomBase = "http://192.168.178.85/APPcom.php";
+String APPcomBase = "http://10.1./APPcom.php";
 
 void setup() {
   size(1000, 1000);

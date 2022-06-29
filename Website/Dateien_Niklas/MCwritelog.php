@@ -6,16 +6,16 @@ else {
 }
 
 //Code Auswerten und in logfile schreiben
-$file = fopen("MClog.txt", "a");
+$file = fopen("/var/www/html/BeerMachine/Dateien_Niklas/MClog.txt", "a");
 $Code = $_GET['Code'];
 if ($file) {
     //Code - Fehler
     if ($Code == -1) {
-        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Fehlermeldung";    //currently not in use
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Füllstand Wasser gering";    //currently not in use
         fwrite($file, $txt."\n");
     }
     if ($Code == -2) {
-        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Fehlermeldung";    //currently not in use
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Füllstand Orangensaft gering";    //currently not in use
         fwrite($file, $txt."\n");
     }
     if ($Code == -3) {
@@ -25,7 +25,7 @@ if ($file) {
 
     //Code - normaler Eintrag in logfile
     if ($Code == 0) {  //Heartbeat
-        $txt = date('d-m-y h:i:s')." | Code: ".$Code." | Verbindung: MC->Server steht";
+        $txt = date('d-m-y h:i:s')." | Code: ".$Code."  | Verbindung: MC->Server steht";
         fwrite($file, $txt."\n");
         
         $db = new mysqli("localhost", "root", "123456789", "BeerMachine");
