@@ -1,6 +1,6 @@
 cButton ButtonWasser;
 cButton ButtonOSaft;
-String APPcomBase = "http://192.168.178.85/APPcom.php";
+String APPcomBase = "http://10.3.141.1/BeerMachine/Dateien_Niklas/APPcom.php";
 
 void setup() {
   size(1000, 1000);
@@ -12,7 +12,7 @@ void setup() {
 void draw() {
   background(0,0,50);
   String[] retVal;
-  retVal = loadStrings("http://192.168.178.85/APPcom.php?Statusabfrage=1");
+  retVal = loadStrings("http://10.3.141.1/BeerMachine/Dateien_Niklas/APPcom.php?Statusabfrage=1");
   textSize(32);
   
   if (int(retVal[0]) == 0) {
