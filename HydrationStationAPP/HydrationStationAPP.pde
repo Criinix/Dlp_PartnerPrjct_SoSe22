@@ -5,14 +5,14 @@ String APPcomBase = "http://10.3.141.1/BeerMachine/Dateien_Niklas/APPcom.php";
 void setup() {
   size(1000, 1000);
   frameRate(1);
-  ButtonWasser = new cButton(color(255,0,0),100,100,"Wasser", 1); 
-  ButtonOSaft = new cButton(color(255,0,0),600,100,"Orangensaft", 2); 
+  ButtonWasser = new cButton(color(200,0,0),100,100,"Wasser", 1); 
+  ButtonOSaft = new cButton(color(200,0,0),600,100,"Orangensaft", 2); 
 }
 
 void draw() {
   background(0,0,50);
   String[] retVal;
-  retVal = loadStrings("http://10.3.141.1/BeerMachine/Dateien_Niklas/APPcom.php?Statusabfrage=1");
+  retVal = loadStrings(APPcomBase+"?Statusabfrage=1");
   textSize(32);
   
   if (int(retVal[0]) == 0) {
@@ -25,7 +25,7 @@ void draw() {
       text("Orangensaft wird ausgegeben", 200, 700);
   }
   else {
-      text("Verbindung zum Server fehlgeschlagen", 200, 700);
+      text("Falscher Statuswert!", 200, 700);
   }
   
   ButtonWasser.display();
