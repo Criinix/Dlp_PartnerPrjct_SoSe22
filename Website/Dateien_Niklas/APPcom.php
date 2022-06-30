@@ -33,7 +33,7 @@ else {
         else {
             echo "Lesen fehlgeschlagen!<br>";
         }
-        echo file_get_contents('APPcomTest.txt');
+        //echo file_get_contents('APPcomTest.txt');
     }
 }
 ?>

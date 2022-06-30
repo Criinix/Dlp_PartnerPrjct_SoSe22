@@ -40,7 +40,6 @@ class cGetraenkeeinheit {
   int fuellstand;
   int statuswert;  
   long tPumpeStart;
-  long tPumpeStart;
   unsigned char pinPumpe;
   unsigned char trigPinUSS;
   unsigned char echoPinUSS;
@@ -53,7 +52,7 @@ class cGetraenkeeinheit {
   }
   
   void pumpeEin() {
-    digitalWrite(pinPumpe, LOW);
+    digitalWrite(pinPumpe, HIGH);
     if ((millis()-tPumpeStart)>3000) {
       String URLStatus0 = MCcomBase + "?neuerStatusMC=0";
       serverRequest(URLStatus0); //Status auf Server auf 0 setzen nach Zeit
@@ -65,7 +64,7 @@ class cGetraenkeeinheit {
   }
   
   void pumpeAus() {
-    digitalWrite(pinPumpe, HIGH);
+    digitalWrite(pinPumpe, LOW);
   }
   
   int getDataUSS() {
@@ -123,17 +122,25 @@ checkWiFiconnection(); //inklusive Heartbeat
 
 if ((millis()-tLoopDelay1s)>1000) {
   responseStatus = serverRequest(MCcomBase+"?Statusabfrage=1");
+  Serial.println("Status: "+responseStatus);
   UserID = getUserID();
+  Serial.println("Aktueller User: "+UserID);
   tLoopDelay1s = millis();
 }
 
 actOnStatus();
 
-if ((millis()-tLoopDelay3s)>3000) {
+if ((millis()-tLoopDelay3s)>30000) {
   Wasser->fuellstand = 20-Wasser->getDataUSS();
   Bier->fuellstand = 20-Bier->getDataUSS();
   sendFuellstand();
   Serial.println("Füllstand Wasser: " + (String)Wasser->fuellstand + "   " + "Füllstand OSaft: " + (String)Bier->fuellstand);
+  if (Wasser->fuellstand<0) {
+    sendtolog(-1); 
+  }
+  if (Bier->fuellstand<0) {
+    sendtolog(-2); 
+  }
   tLoopDelay3s = millis();
 }
 
@@ -161,7 +168,7 @@ void heartbeat() {
     }
   }
   else {
-    if (millis()-tlastBeat>5000) {
+    if (millis()-tlastBeat>30000) {
       stateLED = !stateLED;
       digitalWrite(D4,stateLED);  // LED aus
       tlastBeat=millis();
@@ -172,12 +179,12 @@ void heartbeat() {
 
 //Statusantwort auswerten
 void actOnStatus() {
-  if ((responseStatus == (String)Wasser->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Wasser->fuellstand>0)) {
+  if ((responseStatus == (String)Wasser->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Wasser->fuellstand>=0)) {
     Wasser->isBusy = 1;
     Wasser->tPumpeStart=millis();
     Serial.println("Wasser is busy");     
   }
-  if ((responseStatus == (String)Bier->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Bier->fuellstand>0)) {
+  if ((responseStatus == (String)Bier->statuswert)&&(Wasser->isBusy == 0)&&(Bier->isBusy == 0)&&(Bier->fuellstand>=0)) {
     Bier->isBusy = 1;
     Bier->tPumpeStart=millis();
     Serial.println("Bier is busy"); 
@@ -200,13 +207,18 @@ void actOnStatus() {
 //Meldung in logfile schreiben
 void sendtolog(int Code) {
   String logURL = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MCwritelog.php?Code="+(String)Code;
-  serverRequest(logURL);
+  //Serial.println(logURL);
+  if (serverRequest(logURL)) {
   Serial.println("Eintrag mit Code: "+(String)Code+" in logfile geschrieben");
+  }
+  else {
+      Serial.println("Eintrag mit Code: NICHT logfile geschrieben");
+    }
 }
 
 //Aktuelle User ID aus DB holen
 String getUserID() {
-  String UserIDURL = MCcomBase+"?Statusabfrage=1";
+  String UserIDURL = MCcomBase+"?Userabfrage=1";
   String responseUserID = serverRequest(UserIDURL);
   return responseUserID;
 }
@@ -214,7 +226,7 @@ String getUserID() {
 //Füllstände an Server senden
 void sendFuellstand() {
   String dataUssURL = MCcomBase+"?standWasser="+Wasser->fuellstand+"&standOSaft="+Bier->fuellstand;
-  Serial.println(dataUssURL);
+  //Serial.println(dataUssURL);
   serverRequest(dataUssURL);
 }
 

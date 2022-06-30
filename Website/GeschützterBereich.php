@@ -25,7 +25,8 @@
             <a href="http://10.3.141.1/BeerMachine/Logout.php" class="links ">Logout</a>
         </div>
     </div>
-</body>
+    
+
 <script src=logic.js></script>
 <?php
     $showActions = true;
@@ -40,13 +41,14 @@
     //Abfrage der Nutzer ID vom Login
     $userid = $_SESSION['userid'];
     echo "Hallo User: " . $userid;
+    echo "<br>";
     $MAC = 1;
     $db = new mysqli("localhost", "root","123456789", "BeerMachine");
     if ($db->connect_error) {
         echo $db->connect_error;
     }
     else {
-        echo "Datenbankverbindung hergestellt!<br>";
+        echo "<br>Datenbankverbindung hergestellt!<br>";
         //Aktuellen User an Mikrocontroller übergeben
         $sql = "UPDATE Mikrocontroller SET AktuellerUser = '$userid' WHERE MAC = '$MAC'";
 
@@ -103,7 +105,21 @@
             }
 
         }
+        $sql = "SELECT Fuelstand_Wasser from Mikrocontroller WHERE MAC = 1";
+        $result = $db->query($sql);
 
+        if($result) {
+            $FüllstandWasser = $result->fetch_object();
+            echo $FüllstandWasser;
+        }
+
+        $sql = "SELECT Fuelstand_OSaft from Mikrocontroller WHERE MAC = 1";
+        $result = $db->query($sql);
+
+        if($result) {
+            $FüllstandOSaft = $result->fetch_object();
+            echo $FüllstandOSaft;
+        }       
 
     }
 
@@ -128,10 +144,37 @@
             </form>
             
         </div>
+        <div  id="Log" class="Log"></div>
+    <script>
+        window.onload = function() {
+            div = document.getElementById('Log');
+            var linksrc = "http://10.3.141.1/BeerMachine/Dateien_Niklas/MClog.txt";
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    let response = this.responseText;
+                    div.innerHTML += response;
+                    div.style.color = '#03e9f4';
+                    div.style.background = 'rgba(0, 0, 0, .5)';
+                    div.style.width = '450px';
+                    div.style.height = 'auto';
+                    div.style.borderRadius = '5px';
+                    div.style.borderColor = 'black';
+                    div.style.marginLeft = '70%';
+                    div.style.boxShadow = '0 15px 25px rgba(0, 0, 0, .6)';
+                    div.style.paddingLeft = '15px';
+                }
+            }
+            xhr.open("GET", linksrc);
+            xhr.send();
+        }
+    </script>
     <?php
     }
     ?>
 
+   
+    
 
-
+</body>
 </html>

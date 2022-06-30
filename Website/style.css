@@ -351,9 +351,9 @@ body {
 .Begrüßung {
     color: #fff;
     position: absolute;
-    width: 300px;
+    width: 400px;
     margin-top: 20px;
-    padding: 40px;
+    padding: 30px;
     background: rgba(0, 0, 0, .5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);

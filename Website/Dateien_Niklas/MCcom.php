@@ -1,4 +1,5 @@
 <?php
+session_start();
 $db = new mysqli("localhost", "root","123456789", "BeerMachine");
 if ($db->connect_error) {
     echo $db->connect_error;
@@ -46,6 +47,19 @@ else {
         }
         else {
             echo "Füllstand Aktualisierung fehlgeschlagen";
+        }
+    }
+
+    if (isset($_GET['Userabfrage'])) {
+        $sql = "SELECT AktuellerUser FROM Mikrocontroller";
+        $result = $db->query($sql);
+        if ($result) {
+            while ($datensatz = $result->fetch_object()) {
+                echo $datensatz->AktuellerUser;
+            }
+        }
+        else {
+            echo "Lesen fehlgeschlagen!<br>";
         }
     }
 }
