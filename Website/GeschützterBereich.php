@@ -105,6 +105,7 @@
             }
 
         }
+        /*
         $sql = "SELECT Fuelstand_Wasser from Mikrocontroller WHERE MAC = 1";
         $result = $db->query($sql);
 
@@ -119,7 +120,8 @@
         if($result) {
             $FüllstandOSaft = $result->fetch_object();
             echo $FüllstandOSaft;
-        }       
+        }    
+        */   
 
     }
 
